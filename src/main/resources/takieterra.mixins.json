@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "net.takie.takieterra.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BlockStateProviderMixin",
+    "InvokerFoliagePlacerType",
+    "InvokerTrunkPlacerType",
+    "MixinTrunkPlacer",
+    "RecipeManagerAccessor",
+    "TreeDecoratorTypeAccessor",
+    "TreeDecoratorTypeInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
