@@ -34,7 +34,6 @@ public class QuarteredMegaTreeConfig extends TreeFeatureConfig {
 	public final BlockStateProvider quarteredTrunkProvider;
 	public final BlockStateProvider rootsProvider;
 
-	// TODO: Consider whether the new Optional<RootPlacer> arg is useful to us
 	protected QuarteredMegaTreeConfig(BlockStateProvider trunkProvider, TrunkPlacer trunkPlacer,
 								BlockStateProvider foliageProvider,
 								FoliagePlacer foliagePlacer, BlockStateProvider dirtProvider,
