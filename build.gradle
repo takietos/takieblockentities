@@ -1,0 +1,148 @@
+plugins {
+	id 'fabric-loom' version '1.2-SNAPSHOT'
+	id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+
+repositories {
+	maven {
+		name = 'TerraformersMC'
+		url = 'https://maven.terraformersmc.com/'
+	}
+
+	maven { url "https://maven.shedaniel.me" }
+
+	maven {
+		name = 'frozenlib'
+		url = 'https://modrinth.com/mod/frozenlib/version/1.3.2-mc1.20.1'
+	}
+	maven { url 'https://jitpack.io' }
+
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/takieterra.accesswidener")
+    runs {
+		// This adds a new gradle task that runs the datagen API: "gradlew runDatagen"
+		datagen {
+			inherit server
+			name "Data Generation"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+			vmArg "-Dfabric-api.datagen.modid=takieterra"
+ 
+			runDir "build/datagen"
+		}
+	}
+}
+
+// Add the generated resources to the main source set
+sourceSets {
+	main {
+		resources {
+			srcDirs += [
+					'src/main/generated'
+			]
+		}
+	}
+}
+dependencies {
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.0.625"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.625"
+
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	// Uncomment the following line to enable the deprecated Fabric API modules. 
+	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
+
+	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+
+	// FrozenLib
+	//modImplementation "com.modrinth.frozenlib:frozenlib-1.3.2-mc1.20.1"
+
+	modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:7.0.1"
+	modImplementation "com.terraformersmc.terraform-api:terraform-shapes-api-v1:7.0.1"
+	modImplementation "com.terraformersmc.terraform-api:terraform-dirt-api-v1:7.0.1"
+	modImplementation "com.terraformersmc.terraform-api:terraform-surfaces-api-v1:7.0.1"
+	modImplementation "com.terraformersmc.terraform-api:terraform-tree-api-v1:7.0.1"
+	modImplementation "com.terraformersmc.terraform-api:terraform-config-api-v1:7.0.1"
+	modImplementation "com.terraformersmc.terraform-api:terraform-biome-remapper-api-v1:7.0.1"
+
+	include modApi('com.terraformersmc.terraform-api:terraform-tree-api-v1:7.0.1') {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	include modApi('com.terraformersmc.terraform-api:terraform-shapes-api-v1:7.0.1') {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	include modApi('com.terraformersmc.terraform-api:terraform-dirt-api-v1:7.0.1') {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	include modApi('teamreborn:energy:3.0.0') {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+
+}
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	tasks.withType(Copy).all {
+		duplicatesStrategy 'exclude'
+	}
+
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}"}
+	}
+}
+
+// configure the maven publication
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
+}

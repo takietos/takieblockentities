@@ -1,0 +1,17 @@
+{
+  "type": "takieterra:alloy_forge",
+  "cookingtime": 200,
+  "experience": 5,
+  "ingredients": [
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    }
+  ],
+  "output": {
+    "count": 2,
+    "item": "takieterra:rose_gold_ingot"
+  }
+}

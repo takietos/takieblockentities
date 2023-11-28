@@ -1,0 +1,13 @@
+{
+  "type": "takieterra:kettle_block",
+  "cookingtime": 200,
+  "experience": 5,
+  "ingredients": [
+    {
+      "item": "takieterra:applemint"
+    }
+  ],
+  "output": {
+    "item": "takieterra:tea_applemint"
+  }
+}

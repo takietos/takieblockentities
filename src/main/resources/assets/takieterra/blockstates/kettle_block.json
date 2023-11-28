@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "takieterra:block/kettle_block",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "takieterra:block/kettle_block"
+    },
+    "facing=south": {
+      "model": "takieterra:block/kettle_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "takieterra:block/kettle_block",
+      "y": 270
+    }
+  }
+}

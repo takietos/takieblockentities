@@ -1,0 +1,19 @@
+{
+  "parent": "minecraft:block/cube",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [ 0, 135, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.40, 0.40, 0.40 ]
+    }
+  },
+  "textures": {
+    "particle": "takieterra:block/alloy_forge_front",
+    "down": "takieterra:block/alloy_forge_top",
+    "up": "takieterra:block/alloy_forge_top",
+    "north": "takieterra:block/alloy_forge_front_on",
+    "east": "takieterra:block/alloy_forge_side",
+    "south": "takieterra:block/alloy_forge_side",
+    "west": "takieterra:block/alloy_forge_side"
+  }
+}

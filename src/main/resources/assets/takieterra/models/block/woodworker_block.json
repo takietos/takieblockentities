@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "takieterra:block/woodworker_block_bottom",
+    "up": "takieterra:block/woodworker_block_top",
+    "north": "takieterra:block/woodworker_block_side2",
+    "south": "takieterra:block/woodworker_block_front",
+    "east": "takieterra:block/woodworker_block_side1",
+    "west": "takieterra:block/woodworker_block_side0",
+    "particle": "takieterra:block/woodworker_block_top"
+  }
+}
